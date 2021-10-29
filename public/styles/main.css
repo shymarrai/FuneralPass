@@ -1,7 +1,17 @@
 :root {
-  --white: #fff;
-  --gray: #eee;
+  --white: #fafafa;
+  --light-gray: #eee;
+  --medium-gray: #666;
+  --green: #b7d464;
+  --dark: #0b1528;
 }
+body {
+  background-color: var(white);
+}
+body.dark {
+  background-color: var(--dark);
+}
+
 main {
   display: flex;
   align-items: center;
@@ -9,45 +19,8 @@ main {
   height: 100vh;
   overflow-x: hidden;
 }
-.card-profile {
-  padding: 2rem;
-  display: flex;
-  gap: 1.5rem;
-  flex-direction: column;
-  margin-bottom: 14vh;
-  align-items: center;
-}
-img.profile {
-  width: 26rem;
-}
-
-.accesForm {
-  width: 100vw;
-  display: flex;
-  gap: 1.5rem;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.accesForm input[type="text"],
-.accesForm input[type="password"] {
-  width: 72%;
-  height: 2rem;
-  border-radius: 40px;
-  border: none;
-  background-color: var(--gray);
-  padding: 0.5rem;
-  padding-left: 1.5rem;
-  color: #666;
-  font-weight: bold;
-}
-
-.accesForm input[type="submit"] {
-  width: 36%;
-  border: none;
-  border-radius: 10px;
-  height: 2.4rem;
-  background-color: #b7d464;
-  color: var(--white);
-  font-weight: bold;
+.toggleTheme {
+  position: absolute;
+  right: 2vw;
+  top: 2vh;
 }

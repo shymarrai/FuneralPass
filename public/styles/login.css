@@ -1,0 +1,69 @@
+:root {
+  --white: #fafafa;
+  --light-gray: #eee;
+  --medium-gray: #666;
+  --light-medium-gray: #b2b2b2;
+  --green: #b7d464;
+  --dark: #0b1528;
+}
+.card-profile {
+  padding: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  margin-bottom: 14vh;
+  align-items: center;
+}
+img.profile {
+  width: 26rem;
+}
+
+.accesForm {
+  width: 100vw;
+  display: flex;
+  gap: 1.5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.accesForm input[type="text"],
+.accesForm input[type="password"] {
+  width: 72%;
+  height: 2rem;
+  border-radius: 40px;
+  border: none;
+  background-color: var(--light-gray);
+  padding: 0.5rem;
+  padding-left: 1.5rem;
+  color: var(--medium-gray);
+  font-weight: bold;
+  outline: none;
+}
+
+.accesForm input[type="submit"] {
+  width: 36%;
+  border: none;
+  border-radius: 6px;
+  height: 2.4rem;
+  background-color: var(--green);
+  color: var(--white);
+  font-weight: bold;
+  transition: all 0.2s linear;
+}
+.accesForm input[type="submit"]:hover {
+  filter: brightness(1.06);
+}
+::placeholder {
+  color: var(--light-medium-gray);
+}
+@media (min-width: 768px) {
+  .accesForm input[type="text"],
+  .accesForm input[type="password"] {
+    width: 30%;
+  }
+
+  .accesForm input[type="submit"] {
+    width: 10%;
+    height: 2rem;
+  }
+}

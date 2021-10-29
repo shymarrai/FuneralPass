@@ -9,7 +9,7 @@ app.use(express.urlencoded());
 
 
 app.get('/', (req, res) => {
-  return res.render('index.ejs')
+  return res.render('principal.ejs')
 })
 
 module.exports = app

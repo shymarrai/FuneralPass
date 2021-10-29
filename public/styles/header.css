@@ -1,0 +1,81 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --white: #fafafa;
+  --light-gray: #eee;
+  --medium-gray: #666;
+  --light-medium-gray: #b2b2b2;
+  --green: #b7d464;
+  --light-blue: #6ac9f3;
+  --dark: #0b1528;
+}
+header {
+  width: 100vw;
+  height: 16vh;
+  position: absolute;
+  top: 0;
+}
+.containerGreeting button {
+  display: none;
+  visibility: hidden;
+}
+.containerGreeting span {
+  font-size: 3rem;
+  transform: translateY(-80px);
+  text-align: center;
+}
+
+.containerGreeting {
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--dark);
+  opacity: 0;
+  color: var(--white);
+  z-index: 2;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 0;
+  animation: saudation 4s linear alternate;
+  overflow: hidden;
+}
+
+.fa-file-download {
+  font-size: 2rem;
+  color: var(--white);
+  cursor: pointer;
+}
+.containerExport {
+  position: absolute;
+  right: 2.5vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  box-shadow: 0 15px 20px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+}
+div.animate__bounceIn {
+  animation-timing-function: linear;
+}
+.active {
+  background-color: var(--light-blue);
+}
+
+@keyframes saudation {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0%;
+  }
+}
