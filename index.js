@@ -18,6 +18,7 @@ const server = express();
 //escolhendo template engine
 server.set('view engine', 'ejs')
 
+
 //habilitador os arquivos static
 server.use(express.static("public"))
 
