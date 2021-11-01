@@ -1,8 +1,71 @@
 @media (min-width: 640px) {
   .containerExpanse,
   .bar-steps,
-  .step-indicator,
   .containerExport {
     display: none;
+  }
+  .menu-container {
+    width: 40vw;
+    height: 6%;
+    background-color: var(--light-gray);
+    margin-top: 25vh;
+    left: -16%;
+    border-radius: 40px;
+    overflow: hidden;
+    justify-content: flex-start;
+  }
+  .step-indicator {
+    min-width: 8rem;
+    min-height: 3rem;
+    padding: 0 3%;
+    background-color: var(--light-gray);
+    border-radius: 20px 80px 80px 20px;
+    box-shadow: none;
+    cursor: pointer;
+    margin-left: -2%;
+  }
+  .step-indicator span {
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+    font-family: sans-serif;
+    font-size: 12px;
+    color: var(--medium-gray);
+  }
+  .menu-container div.shadow-drop-2-center {
+    animation: none;
+    background-color: var(--light-blue);
+  }
+
+  .shadow-drop-2-center span {
+    color: #fff;
+  }
+
+  .menu-container .step-indicator:nth-of-type(1) {
+    z-index: 5;
+  }
+  .menu-container .step-indicator:nth-of-type(2) {
+    z-index: 4;
+  }
+  .menu-container div:nth-of-type(3) {
+    z-index: 3;
+  }
+  .menu-container .step-indicator:nth-of-type(4) {
+    z-index: 2;
+  }
+
+  .step-indicator:nth-of-type(1) span::after {
+    content: "INÍCIO";
+  }
+  .step-indicator:nth-of-type(2) span::after {
+    content: "SERVIÇOS";
+  }
+
+  .step-indicator:nth-of-type(3) span::after {
+    content: "DADOS DO CONTRATANDO";
+  }
+
+  .step-indicator:nth-of-type(4) span::after {
+    content: "DADOS DO ÓBITO";
   }
 }

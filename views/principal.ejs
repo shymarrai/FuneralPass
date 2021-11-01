@@ -1,48 +1,40 @@
   <%- include("../views/parts/header.ejs") %>
   <main>
 
-    <div class="menu-container">
+    <%- include("../views/parts/menu.ejs") %>
 
-      <div class="step-indicator shadow-drop-2-center">
-        <span class="completed-step">
-        
-        </span>
-      </div>
+    <div class="form-container">
+      <form method="post" action="#">
+        <div class="form-group">
+          <h2 class="form-title">Dados básicos do Declarante</h2>
+          <input type="text" />
+          <input type="text" />
+          <input type="text" />
+          <input type="text" />
 
-      <div class="step-indicator">
-        <span class="completed-step">
-          
-        </span>
-      </div>
+        </div>
 
-      <div class="step-indicator">
-        <span>
-          
-        </span>
-      </div>
+        <div class="form-group">
+          <h2 class="form-title">Dados do vendedor</h2>
+          <input type="text" />
+          <input type="text" />
+        </div>
 
-      <div class="step-indicator">
-        <span>
-          
-        </span>
-      </div>
+        <div class="form-group">
 
-      <div class="bar-steps">
-        <hr class="completed-step"/>
-        <hr class="" />
-        <hr />
-        <hr />
-        <hr />
-      </div>
-    </div>
+          <input type="button" value="PRÓXIMO"/>
+        </div>
 
-    <div class="containerExpanse">
-      <span>
-        $      
-      </span>
+
+      </form>
     </div>
 
   </main>
+  <div class="containerExpanse">
+    <span>
+      $      
+    </span>
+  </div>
 </body>
 <script type="text/javascript" src="/scripts/toggle.js"></script>
 <script src="https://kit.fontawesome.com/975d23274d.js" crossorigin="anonymous"></script>
