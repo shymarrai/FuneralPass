@@ -31,6 +31,17 @@ body.dark .label .ball {
   background-color: var(--dark);
 }
 
+body.dark form {
+  box-shadow: 0 6px 10px 1px rgba(23, 46, 87, 0.2);
+}
+body.dark .form-title {
+  color: var(--white);
+}
+body.dark .form-container input[type="text"],
+body.dark .form-container input[type="button"] {
+  box-shadow: 0 5px 8px 2px rgba(23, 46, 87, 0.4);
+}
+
 .checkbox {
   opacity: 0;
   position: absolute;

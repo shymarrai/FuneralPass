@@ -7,7 +7,7 @@
   .menu-container {
     width: 40vw;
     height: 6%;
-    background-color: var(--light-gray);
+    background-color: transparent;
     margin-top: 25vh;
     left: -16%;
     border-radius: 40px;

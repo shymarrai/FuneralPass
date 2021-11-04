@@ -1,18 +1,26 @@
 const chk = document.getElementById('chk');
+var theme = localStorage.getItem('mode')
+document.body.classList.add(theme);
+
+if (!theme) {
+	localStorage.setItem('mode', 'light')
+	theme = 'light'
+	chk.checked = false
+}
+
+if(theme == 'dark'){
+	chk.checked = true
+}
 
 chk.addEventListener('change', () => {
+	var theme = localStorage.getItem('mode')
 	document.body.classList.toggle('dark');
-});
 
-// SOCIAL PANEL JS
-const floating_btn = document.querySelector('.floating-btn');
-const close_btn = document.querySelector('.close-btn');
-const social_panel_container = document.querySelector('.social-panel-container');
-
-floating_btn.addEventListener('click', () => {
-	social_panel_container.classList.toggle('visible')
-});
-
-close_btn.addEventListener('click', () => {
-	social_panel_container.classList.remove('visible')
+	if(theme == 'light'){
+		localStorage.setItem('mode', 'dark')
+		chk.checked = true
+	}else if(theme == 'dark'){
+		localStorage.setItem('mode', 'light')
+		chk.checked = false
+	}
 });

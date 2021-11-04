@@ -40,7 +40,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.5s;
 }
+.step-indicator:hover {
+  background-color: var(--light-blue);
+}
+.step-indicator:hover span {
+  color: var(--white);
+}
+
 .step-indicator span {
   background-color: var(--light-medium-gray);
   padding: 15% 20%;
@@ -49,6 +57,7 @@
   font-weight: bold;
   align-self: center;
   font-size: 15px;
+  transition: all 0.5s;
 }
 .shadow-drop-2-center {
   border: none;
