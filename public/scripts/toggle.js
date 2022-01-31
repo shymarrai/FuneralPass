@@ -11,10 +11,12 @@ if (!theme) {
 	localStorage.setItem('mode', 'light')
 	theme = 'light'
 	chk.checked = false
+	img.src = "/assets/Logos/logoDark.png"
 }
 
 if(theme == 'dark'){
 	chk.checked = true
+	img.src = "/assets/Logos/logoLight.png"
 }
 
 chk.addEventListener('change', () => {

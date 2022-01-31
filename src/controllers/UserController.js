@@ -7,7 +7,10 @@ const UserController = {
     return res.render('register')
   },
   save: async function (req, res) {
-    const createdUser = await User.findOne({ username: req.body.username })
+
+    const username = req.body.username
+
+    const createdUser = await User.findOne({ username })
     if (createdUser) return res.status(400).send("Usuário existente")
 
     const user = new User({
@@ -29,7 +32,9 @@ const UserController = {
   },
   login: async function (req, res) {
 
-    const selectedUser = await User.findOne({ username: req.body.username })
+    const username = req.body.username
+
+    const selectedUser = await User.findOne({ username })
     if (!selectedUser) return res.send("Usuário ou senha inexistente")
 
 

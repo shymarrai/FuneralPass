@@ -73,7 +73,7 @@
 
   #data-table {
     width: 100%;
-    padding-left: 250px;
+    padding-left: 340px;
   }
 
   #data-table tr th {
@@ -84,11 +84,13 @@
     white-space: nowrap;
     overflow: hidden;
     width: 200px;
+    font-size: 0.9rem;
   }
 
   #data-table tr td {
     width: 200%;
     color: #9aa7af;
+    font-size: 0.8rem;
     font-family: "Nunito", sans-serif;
     margin: 0 26px;
     padding: 0 10px;

@@ -24,6 +24,21 @@ body {
   overflow-x: hidden;
 }
 
+body.dark .services {
+  box-shadow: 0 6px 10px 1px rgba(23, 46, 87, 0.2);
+}
+
+body.dark a,
+body.dark label,
+body.dark i.fa-plus-circle,
+body.dark p.add-services-tag {
+  color: var(--white);
+}
+
+body.dark .line-table:nth-of-type(even) p {
+  color: var(--white);
+}
+
 body.dark .label {
   background-color: var(--white);
 }
@@ -31,14 +46,15 @@ body.dark .label .ball {
   background-color: var(--dark);
 }
 
-body.dark form {
+body.dark form.profile {
   box-shadow: 0 6px 10px 1px rgba(23, 46, 87, 0.2);
 }
 body.dark .form-title {
   color: var(--white);
 }
 body.dark .form-container input[type="text"],
-body.dark .form-container input[type="button"] {
+body.dark .form-container input[type="button"],
+body.dark input[type="submit"] {
   box-shadow: 0 5px 8px 2px rgba(23, 46, 87, 0.4);
 }
 
@@ -83,6 +99,13 @@ body.dark .form-container input[type="button"] {
 
 .fa-sun {
   color: #f39c12;
+}
+
+body.dark .main-relatorio label,
+body.dark .main-relatorio a,
+body.dark #data-table tr td,
+body.dark #data-table tr th {
+  color: var(--white);
 }
 
 @media (max-width: 540px) {
