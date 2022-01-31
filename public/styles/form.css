@@ -1,18 +1,109 @@
 @media (min-width: 640px) {
   form {
-    width: 70%;
-    height: 100%;
+    margin-top: -10vh;
+    width: 50vw;
+    height: 28rem;
     padding: 4vw;
     padding-top: 1rem;
     border-radius: 50px;
-    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 5px 5px 10px #e6e6e6, -5px -5px 10px #ffffff;
+    background: linear-gradient(145deg, #ffffff, #ebebeb);
+  }
+  form.dark {
+    background: #0b1528;
+    box-shadow: 23px 23px 46px #08101f, -23px -23px 46px #0e1a31;
   }
   .form-title {
     font-size: 1.2rem;
     margin-top: 2rem;
   }
-  .form-container input[type="button"] {
+
+  input[type="button"],
+  input[type="submit"] {
     width: 25%;
-    margin: 4% 65%;
+    margin: 4% 75%;
+    background-color: var(--green);
+  }
+
+  .form-container input[type="text"].mine-input {
+    width: 43.4%;
+    align-self: center;
+  }
+
+  .form-container input[type="text"].tiny-mine-input {
+    width: 23.4%;
+    align-self: center;
+  }
+  .fa-plus-circle,
+  p {
+    color: #9aa7af;
+    font-family: "Nunito", sans-serif;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 4%;
+    margin-left: 2%;
+    align-items: center;
+    width: 150px;
+    cursor: pointer;
+  }
+
+  .wrapper p:hover {
+    text-decoration: underline;
+  }
+
+  .table-services {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 90px;
+    margin-top: 4px;
+    overflow-y: auto;
+  }
+
+  .services {
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 2px 2px 10px #e6e6e6, -2px -2px 10px #ffffff;
+    width: 90%;
+    padding: 4px 20px;
+    background-color: var(--light-blue);
+    border-radius: 4px;
+    margin: 4px 0;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+  }
+  .info input {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: var(--white);
+    font-family: "Nunito", sans-serif;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .service-actions {
+    display: flex;
+    flex-direction: row;
+    width: 10px;
+    align-self: flex-end;
+    margin-right: 8px;
+  }
+  .service-actions i {
+    color: var(--white);
+    cursor: pointer;
+    padding: 2px 14px;
+  }
+  .service-actions:hover i {
+    filter: brightness(1.09);
   }
 }

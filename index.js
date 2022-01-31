@@ -5,13 +5,13 @@ require('dotenv').config()
 
 const server = express();
 
-// mongoose.connect(process.env.MONGO_CONNECTION_URL, { useUnifiedTopology: true, useNewUrlParser: true },
-//   (error) => {
-//     if (error) { console.log(error) }
+mongoose.connect(process.env.MONGO_CONNECTION_URL, { useUnifiedTopology: true, useNewUrlParser: true },
+  (error) => {
+    if (error) { console.log(error) }
 
-//     else { console.log('Mongo Connected') }
+    else { console.log('Mongo Connected') }
 
-//   })
+  })
 
 // mongoose.set('useFindAndModify', false);
 
@@ -28,4 +28,4 @@ server.use(express.urlencoded({ extend: true }))
 //routes
 server.use(routes)
 
-server.listen(process.env.PORT, () => console.log('rodando'))
+server.listen(process.env.PORT, () => console.log('rodando', process.env.PORT))

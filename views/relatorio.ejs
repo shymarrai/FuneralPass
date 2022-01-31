@@ -1,0 +1,153 @@
+<%- include("../views/parts/header.ejs", selectedUser, token) %>
+
+<% var data=new Date(); %>
+<% var dia=String(data.getDate()).padStart(2, '0' ); %>
+  <% var mes=String(data.getMonth() + 1).padStart(2, '0' ); %>
+    <% var ano=data.getFullYear(); %>
+      <% var amanha=String(Number(dia + 1)) %>
+      
+  <main class='main-relatorio'>
+      <!-- <div class='title'>
+        <h2 class="form-title">Filtros</h2>
+      </div> -->
+      <form id="form-generate" method='post' action="/generate/<%= selectedUser.username%>/<%= token %>">
+        <div class='filters'>
+            <div>
+              <div>
+                <label for="de">De:
+                  <input type="date" name="de" id='de' value="<%= ano+" -"+mes+"-"+dia %>">
+                </label>
+              </div>
+    
+              <div>
+                <label for="ate">Até
+                  <input type="date" name="ate" id='ate' value="<%= ano+" -"+mes+"-"+amanha%>">
+                </label>
+              </div>
+            </div>
+
+            <!-- <div>
+              <label for='user_username'>Usuários
+                <select name='user_username' id='user_username'>
+                  <option value="todos">Todos</option>
+                  <option value="EQUIPE 1">EQUIPE 1</option>
+                  <option value="EQUIPE 2">EQUIPE 2</option>
+                  <option value="EQUIPE 3">EQUIPE 3</option>
+                  <option value="EQUIPE 4">EQUIPE 4</option>
+                  <option value="EQUIPE 5">EQUIPE 5</option>
+                  <option value="EQUIPE 6">EQUIPE 6</option>
+                  <option value="EQUIPE 7">EQUIPE 7</option>
+                  <option value="EQUIPE 8">EQUIPE 8</option>
+                  <option value="EQUIPE 9">EQUIPE 9</option>
+                  <option value="EQUIPE 10">EQUIPE 10</option>
+                </select>
+              </label>
+  
+              
+            </div> -->
+            <div>
+              <label for='seller_name'>Vendedores
+                <select name='seller_name' id='seller_name'>
+                  <option value="todos">Todos</option>
+                  <% if(isNaN(listSellers)){%>
+                    <% for(var i=0; i<listSellers.length; i++){ %>
+                      <option value="<%= listSellers[i] %>"><%= listSellers[i] %></option>
+                    <%}%>
+                  <%}%>
+                </select>
+              </label>
+
+            </div>
+            <div class='generate-action'>
+              <input type="submit" value="Gerar" form='form-generate' class='button-generate' />
+              <a 
+                href="/relatorio/<%= selectedUser.username%>/<%= token%>" 
+                class='reset'
+                style='padding-right: 1rem;padding-left: 1rem;'
+              >
+                Limpar
+              </a>
+  
+            </div>
+          </div>
+
+        </form>
+
+          <% if(isNaN(result)){%>
+
+            <section id="transactions">
+              <div>
+
+                <table id="data-table">
+                  <thead>
+                    <tr>
+                      <th>Data</th>
+                      <th>Username</th>
+                      <th>Vendedor</th>
+                      <th>Asessoria</th>
+                      <th>Taxas Adversas</th>
+                      <th>Taxas (8%)</th>
+                      <th>Custo dos serviços</th>
+                      <th>Lucro Liquido</th>
+                      <th>Nome declarante</th>
+                      <th>Nome do Óbito</th>
+                      <th>PDF</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <% for(var i=0; i<result.length; i++){ %>
+                    <tr>
+                      <td id='created_at'>
+                        <%= new Date(result[i].created_at).toLocaleDateString('pt-BR') %>
+                      </td>
+
+                      <td id='user_username'>
+                        <%= result[i].user_username %>
+                      </td>
+                      <td id='seller_name'>
+                        <%= result[i].seller_name %>
+                      </td>
+                      <td id='services_advice'>
+                        <%= result[i].services_advice %>
+                      </td>
+                      <td id='services_taxes_adverses'>
+                        <%= result[i].services_taxes_adverses %>
+                      </td>
+                      <td id='services_taxes'>
+                        <%= result[i].services_taxes %>
+                      </td>
+                      <td id='services_costs'>
+                        <%= result[i].services_costs %>
+                      </td>
+                      <td id='services_profit'>
+                        <%= result[i].services_profit %>
+                      </td>
+                      <td id='declarant_name'>
+                        <%= result[i].declarant_name %>
+                      </td>
+                      <td id='obit_name'>
+                        <%= result[i].obit_name %>
+                      </td>
+                      <td id='file_pdf'>
+                        <i class="fas fa-file-pdf" onclick="window.location='/generate-pdf/<%= selectedUser.username %>/<%= token %>/<%= result[i]._id %> '"></i>
+                      </td>
+                  </tr>
+                <% }%>
+                </tbody>
+              </table>
+            </div>
+          </section>
+          <%}%>
+
+
+
+
+    </main>
+
+</body>
+<script src="/scripts/toggle.js"></script>
+<script src="/scripts/actions.js"></script>
+<script src="/scripts/mascaras.js"></script>
+<script src="/scripts/nextSteps.js"></script>
+<script src="https://kit.fontawesome.com/975d23274d.js" crossorigin="anonymous"></script>
+</html>

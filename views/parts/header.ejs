@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,9 +11,13 @@
   <link rel="stylesheet" href="/styles/formMobile.css">
   <link rel="stylesheet" href="/styles/form.css">
   <link rel="stylesheet" href="/styles/toggleStyles.css">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/logo.jpg">
+  <link rel="stylesheet" href="/styles/greetings.css">
+  <link rel="stylesheet" href="/styles/table.css">
+  <link rel="stylesheet" href="/styles/relatorios.css">
+  <link rel="stylesheet" href="/styles/relatoriosMobile.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/Logos/simpleLogoDark.png">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&family=Oswald:wght@500;600;700&family=Roboto:wght@500&display=swap" rel="stylesheet">
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -23,14 +27,15 @@
 <body>
   <header>    
     <div class="containerHeader">
-      <div class="logoContainer">
-        <img src="/assets/logo.png" alt="FuneralPass" />
+      <div class="logoContainer" >
+        <img class='logoHeader' src="/assets/Logos/logoDark.png" alt="FuneralPass" onclick="window.location='/principal/<%= selectedUser.username %>/<%= token %>'" style='cursor:pointer;'/>
       </div>
 
       <div class="containerGreeting">
         <button type="button" value="Relatório">Relatório</button>
         <span id="messageGreets">Olá, <br/>
-        Desenvolvedor</span>
+          <%= selectedUser.username %>
+        </span>
 
         <button type="button" value="Sair">Sair</button>
       </div>
@@ -39,14 +44,18 @@
       active 
       animate__animated
       animate__pulse
-      animate__infinite">
+      animate__infinite"
+      onclick="window.location='/relatorio/<%= selectedUser.username %>/<%= token %>'"
+      >
         <i class="fas fa-file-download"></i>
       </div>
 
 
     <div class="toggleTheme">
       <%- include("toggleTheme.ejs") %>
+      <%- include("greetings.ejs", selectedUser, token) %>
     </div>
+
 
     </div>
 

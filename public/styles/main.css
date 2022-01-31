@@ -1,6 +1,6 @@
 :root {
   --white: #fafafa;
-  --light-gray: #eee;
+  --light-gray: #eceae9;
   --medium-gray: #666;
   --green: #b7d464;
   --dark: #0b1528;
@@ -10,16 +10,27 @@ body.dark {
   background-color: var(--dark);
 }
 
+body {
+  /* overflow-y: hidden; */
+}
+
 main {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  overflow-x: hidden;
-  width: 100%;
+  /* overflow: hidden; */
+  width: 100vw;
 }
 .toggleTheme {
   position: absolute;
   right: 2vw;
   top: 2vh;
+}
+
+@media (min-width: 640px) {
+  body,
+  main {
+    overflow: hidden;
+  }
 }

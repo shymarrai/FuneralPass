@@ -1,33 +1,492 @@
-  <%- include("../views/parts/header.ejs") %>
-  <main>
+  <%- include("../views/parts/header.ejs", selectedUser, token) %>
 
-    <%- include("../views/parts/menu.ejs") %>
+  <main>
+    <div class='nav'>
+      <%- include("../views/parts/menu.ejs") %>
+    </div>
 
     <div class="form-container">
-      <form method="post" action="#">
-        <div class="form-group">
-          <h2 class="form-title">Dados básicos do Declarante</h2>
-          <input type="text" placeholder="Nome do declarante"/>
-          <input type="text" placeholder="CPF"/>
-          <input type="text" placeholder="Celular"/>
-          <input type="text" placeholder="Email (não é um campo obrigatório)"/>
+      <form method="post" action="/save-transaction/<%= selectedUser.username %>/<%= token %>">       
 
-        </div>
+          <!-- PRIMEIRA ETAPA -->
+          <div id="form-step-questions-start">
+            <div class="form-group">
+              <h2 class="form-title">Dados básicos do Declarante</h2>
+              <input 
+                type="text" 
+                id='declarant_name_start'
+                placeholder="Nome do declarante"
+                name="declarant_name"
+                onchange="replyDeclarantData()"
+              />
+              
+              <input 
+                type="text"
+                placeholder="CPF" 
+                class='mine-input'
+                id='declarant_cpf_start'
+                name="declarant_cpf"
+                maxlength="14"
+                onchange="replyDeclarantData()"
+                onkeypress="mask(this, mCPF);" 
+                onblur="mask(this, mCPF);" 
+              />
 
-        <div class="form-group">
-          <h2 class="form-title">Dados do vendedor</h2>
-          <input type="text" placeholder="Nome do vendedor"/>
-          <input type="text" placeholder="CPF do vendedor"/>
-        </div>
+              <input 
+                type="text" 
+                placeholder="Celular"
+                name="declarant_cel"
+                class='mine-input' 
+                onkeypress="mask(this, mphoneC);" 
+                onblur="mask(this, mphoneC);" 
+              />
 
-        <div class="form-group">
+              <input 
+                type="text" 
+                placeholder="Email (não é um campo obrigatório)"
+                name="declarant_email"
+              />
 
-          <input type="button" value="PRÓXIMO"/>
-        </div>
+            </div>
+  
+            <div class="form-group">
+              <h2 class="form-title" style="font-size: 1rem;margin-top: 8px; margin-bottom: 2px" >Dados do vendedor</h2>
+              <input 
+                type="text" 
+                placeholder="Nome do vendedor"
+                name="seller_name"
+              />
+              <!-- <input type="text" placeholder="CPF do vendedor" class='mine-input' /> -->
+            </div>
+
+            <div class="form-group">
+
+              <input type="button" value="PRÓXIMO" onclick="nextSeccondStep()"/>
+            </div>
+          </div>
 
 
-      </form>
-    </div>
+          <!-- SEGUNDA ETAPA -->
+          <div id="form-step-questions-services">
+            <div class="form-group" style="padding-top: 6%;">
+
+              <input 
+                type="text" 
+                class="mine-input" 
+                placeholder="Assessoria (valor da venda)"
+                name="services_advice"
+                id="services_advice"
+                onkeyup='formatarMoeda(this); calculateTotal()'
+              />
+              
+              <input 
+                type="text" 
+                class="tiny-mine-input"
+                placeholder="Taxas (%)"
+                name="services_rates"
+                id="services_rates"
+                maxlength="4"
+                onkeyup="calculateTotal()"
+              />
+
+              <input 
+                type="text" 
+                class="tiny-mine-input"
+                placeholder="Data da venda"
+                onkeyup='mascaraData(this)'
+                name="services_dateSell"
+              />
+
+            </div>
+
+            <div class="form-group">
+              <input 
+                type="text" 
+                placeholder="Comissão" 
+                class="mine-input"
+                name="services_comission"
+              />
+
+              <input 
+                type="text" 
+                placeholder="Quem recebeu?" 
+                class="tiny-mine-input"
+                name="services_comissionedName"
+              />
+
+              <input 
+                type="text" 
+                class="tiny-mine-input"
+                placeholder="Valor" 
+                name="services_comissionValue"
+                onkeyup='formatarMoeda(this)'
+              />
+
+
+            </div>
+
+
+            <div class="form-group">
+              <!-- <input type="text" placeholder="select" class='tiny-mine-input'/> -->
+              
+              <select name="services_paymodeSell" id="services_paymodeSell" >
+                <option selected disabled>
+                  Forma de Pagamento        
+                </option>
+                <option value="Crédito">Crédito</option>
+                <option value="Débito">Débito</option>
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="Pix">Pix</option>
+              </select>
+
+
+              <input 
+                type="text" 
+                placeholder="Descreva a forma de pagamento" 
+                style="width: 65%;"
+                name="services_descriptionModePaymentSell"
+              />
+            </div>
+
+            <div class="form-group" >
+              <!-- <input type="text" placeholder="select" class='tiny-mine-input'/> -->
+              <select name="services_serviceSelled" id="services_serviceSelled" style="width: 30%;" onchange="addServices()">
+                <option selected disabled>
+                  Escolha os Serviços
+                </option>
+                <option value="Tarifa aérea">Tarifa aérea</option>
+                <option value="Flores">Flores</option>
+                <option value="Outros gastos">Outros gastos</option>
+                <option value="Combustível">Combustível</option>
+                <option value="Estacionamento SVO">Estacionamento SVO</option>
+                <option value="Contratação PMSP (bromélia) Liquidação Direta">Contratação PMSP (bromélia) Liquidação Direta</option>
+                <option value="Contratação PMSP (Açucena)">Contratação PMSP (Açucena)</option>
+                <option value="Contratação PMSP (Petúnia)">Contratação PMSP (Petúnia)</option>
+                <option value="Contratação PMSP (Jasmin)">Contratação PMSP (Jasmin)</option>
+                <option value="Motorista">Motorista</option>
+                <option value="Viagem">Viagem</option>
+                <option value="Indicação (Rabecão)">Indicação (Rabecão)</option>
+                <option value="Indicação (Agência)">Indicação (Agência)</option>
+                <option value="Indicação (Hospital)">Indicação (Hospital)</option>
+                <option value="Indicação (Motorista)">Indicação (Motorista)</option>
+                <option value="Tanato">Tanato</option>
+                <option value="Tanato + ornamentação">Tanato + ornamentação</option>
+                <option value="Comissão Agência">Comissão Agência</option>
+                <option value="Motorista FVB">Motorista FVB</option>
+                <option value="Cemitério">Cemitério</option>
+                <option value="Comissão Agência / SVO / Vidro">Comissão Agência / SVO / Vidro</option>
+                <option value="SVO">SVO</option>
+                <option value="Taxa">Taxa</option>
+              </select>
+
+              <input 
+                type="text" 
+                placeholder="Dados da coluna de serviços" 
+                class='mine-input'
+                name="service_name"
+                id="service_name"
+              />
+
+              <input 
+                type="text" 
+                placeholder="R$" 
+                class="tiny-mine-input"  
+                style="width: 18%;"
+                name="service_price"
+                id="service_price"
+                onkeyup='formatarMoeda(this)'
+              />
+
+            </div>
+
+            <div class="form-group">
+              <div class="wrapper" onclick="addServiceOnTable()">
+                <i class="fas fa-plus-circle">
+                </i>
+                <p>
+                  Adicionar serviços
+                </p>
+              </div>
+
+              <div class='table-services' id='table-services' >
+                
+
+              </div>
+              <!-- <input type="button" value="PRÓXIMO" onclick="nextThirdStep()"/> -->
+            </div>
+          </div>
+
+
+
+
+          <!-- TERCEIRA ETAPA -->
+
+          <div id="form-step-questions-contractor">
+            <div class="form-group">
+
+              <input 
+                type="text" 
+                placeholder="Nome do declarante"
+                name="declarant_name"
+                id='declarant_name_dataDeclarant'
+                onchange="replyDeclarantDataReply()"
+              />
+
+              <input 
+                type="text" 
+                placeholder="RG"  
+                class="tiny-mine-input"
+                name="declarant_rg"
+                maxlength="15"
+              />
+
+              <input 
+                type="text" 
+                placeholder="CPF"  
+                class="tiny-mine-input"
+                name="declarant_cpf"
+                maxlength="14"
+                id='declarant_cpf_dataDeclarant'
+                onchange="replyDeclarantDataReply()"
+                onkeypress="mask(this, mCPF);" 
+                onblur="mask(this, mCPF);" 
+              />
+              
+              <select name="declarant_parentLevel" id="declarant_parentLevel" style="width: 35%;" >
+                <option selected disabled>
+                  Grau de Parentesco
+                </option>
+                <option value="Pai">Pai</option>
+                <option value="Mãe">Mãe</option>
+                <option value="Filho(a)">Filho(a)</option>
+                <option value="Irmã(o)">Irmã(o)</option>
+                <option value="Neto(a)">Neto(a)</option>
+                <option value="Avô/Avó">Avô/Avó</option>
+                <option value="Bisavô/Bisavó">Bisavô/Bisavó</option>
+                <option value="Amigo(a)">Amigo(a)</option>
+                <!-- <option value="Filha">Filha</option> -->
+                <!-- <option value="Irmão">Irmão</option> -->
+                <!-- <option value="Avó">Avó</option> -->
+                <!-- <option value="Bisavó">Bisavó</option> -->
+              </select>
+
+            </div>
+
+            <div class="form-group">
+              <input 
+                type="text" 
+                placeholder="Nome da mãe do declarante"
+                name="declarant_nameMother"
+              />
+
+              <input 
+                type="text" 
+                placeholder="CEP" 
+                class="tiny-mine-input"
+                name="declarant_cep"
+                id="cep"
+                onblur="pesquisacep(this.value);"
+                size="10" maxlength="9"
+              />
+
+              <input 
+                type="text" 
+                placeholder="Cidade" 
+                class="mine-input"
+                name="declarant_city"
+                id="cidade"
+              />
+
+              <input 
+                type="text" 
+                placeholder="Estado" 
+                class="tiny-mine-input" 
+                style="width: 16%;"
+                name="declarant_state"
+                id="uf"
+              />
+
+              <input 
+                type="text" 
+                placeholder="Logradouro"
+                name="declarant_address"
+                id="rua"
+              />
+
+              <input 
+                type="text" 
+                placeholder="Complemento" 
+                class="mine-input"
+                name="declarant_complement"
+                id="bairro"
+              />
+
+              <input 
+                type="text" 
+                placeholder="N°"
+                class="tiny-mine-input"
+                name="declarant_number"
+                onkeyup='MascaraInteiro(this)'
+              />
+            </div>
+
+            <div class="form-group">
+
+              <input type="button" value="Próximo" onclick="nextFourthStep()"/>
+            </div>
+          </div>
+
+
+
+          <!-- QUARTA ETAPA -->
+
+          <div id="form-step-questions-death">
+            <div class="form-group">
+              <input 
+                type="text" 
+                placeholder="Nome do óbito" 
+                style="width: 60%;"
+                name="obit_name"
+              />
+              
+              <input 
+                type="text"
+                placeholder="CPF"
+                maxlength="14"
+                onkeypress="mask(this, mCPF);" 
+                onblur="mask(this, mCPF);"
+                style="width: 30%;"
+                name="obit_cpf"
+              />
+
+              <div class='five-wrapper'>
+                <div class="container-label">
+                  <label for="nasc">
+                    Data Nasc.
+                  </label>
+                  <input 
+                    id="nasc" 
+                    type="text" 
+                    placeholder="__/__/__" 
+                    onkeyup='mascaraData(this)'
+                    name="obit_dateBirth"
+                  />
+                </div>
+
+                <div class="container-label">
+                  <label for="obito">
+                    Data do Óbito
+                  </label>
+                  <input 
+                    id="obito" 
+                    type="text" 
+                    placeholder="__/__/__"  
+                    onkeyup='mascaraData(this)' 
+                    name="obit_dateDeath"
+                  />
+                </div>
+                
+                <div style="width: 100%">
+                  <input 
+                    type="text" 
+                    placeholder="RG"
+                    maxlength="14"
+                    style="width: 50%;"
+                    name="obit_rg"
+                  />
+
+                  <input 
+                    type="text" 
+                    placeholder="Cor do Óbito"
+                    name="obit_color"
+                  />
+                </div>
+              </div>
+
+              <div class='five-wrapper'>
+                <select name="obit_sex" id="obit_sex" style="width: 15%;" >
+                  <option selected disabled>
+                    Sexo
+                  </option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Feminino">Feminino</option>
+                </select>
+
+                <select name="obit_stepMark" id="obit_stepMark" style="width: 22%;" >
+                  <option selected disabled>
+                    Marca Passo
+                  </option>
+                  <option value="Sim">Sim</option>
+                  <option value="Não">Não</option>
+                </select>              
+
+                <select name="obit_civilState" id="obit_civilState" style="width: 22%;" >
+                  <option selected disabled>
+                    Estado Civil
+                  </option>
+                  <option value="Solteiro(a)">Solteiro(a)</option>
+                  <option value="Casado(a)">Casado(a)</option>
+                  <option value="Viúvo(a)">Viúvo(a)</option>
+                </select>
+
+                <select name="obit_typeDeath" id="obit_typeDeath" style="width: 24%;" >
+                  <option selected disabled>
+                    Tipo de Morte
+                  </option>
+                  <option value="Natural">Natural</option>
+                  <option value="Covid">Covid</option>
+
+                </select>
+
+                <select name="obit_finalization" id="obit_finalization" style="width: 22%;" >
+                  <option selected disabled>
+                    Finalização
+                  </option>
+                  <option value="Sepultamento">Sepultamento</option>
+                  <option value="Cremação">Cremação</option>
+
+                </select>
+              </div>
+
+
+
+            </div>
+
+            <div class="form-group">
+              <input 
+                type="text" 
+                placeholder="Nome da mãe do óbito" 
+                name="obit_nameMother"
+              />
+
+              <input 
+                type="text" 
+                placeholder="Nome do pai do óbito" 
+                name="obit_nameFather"
+              />
+
+              <input 
+                type="text" 
+                placeholder="Local de sepultamento (Endereço, Local ou Cremação)" 
+                name="obit_local"
+              />
+
+            </div>
+
+            <div class="form-group">
+
+              <input type="submit" value="Salvar"/>
+            </div>
+          </div>
+
+          <input type="hidden" id='input_taxes' name='input_taxes'/>
+          <input type="hidden" id='input_taxes_adverses' name='input_taxes_adverses'/>
+          <input type="hidden" id='input_custe_of_services' name='input_custe_of_services'/>
+          <input type="hidden" id='input_profit' name='input_profit'/>
+
+        </form>
+      </div>
+      <%- include("../views/parts/table.ejs") %>
 
   </main>
   <div class="containerExpanse">
@@ -36,6 +495,9 @@
     </span>
   </div>
 </body>
-<script type="text/javascript" src="/scripts/toggle.js"></script>
+<script src="/scripts/toggle.js"></script>
+<script src="/scripts/actions.js"></script>
+<script src="/scripts/mascaras.js"></script>
+<script src="/scripts/nextSteps.js"></script>
 <script src="https://kit.fontawesome.com/975d23274d.js" crossorigin="anonymous"></script>
 </html>

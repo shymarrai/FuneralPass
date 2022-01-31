@@ -1,0 +1,111 @@
+@media (min-width: 600px) {
+  .main-relatorio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  form#form-generate {
+    width: 80%;
+    margin-top: 20px;
+  }
+
+  input[type="date"] {
+    border: 2px solid var(--light-gray);
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    margin: 2px;
+  }
+
+  .main-relatorio label {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  div.filters {
+    width: 70vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  div.filters div {
+    margin: 0 6px;
+  }
+
+  .main-relatorio input.button-generate {
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  div.generate-action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  div.generate-action a {
+    text-decoration: none;
+    color: #9aa7af;
+    font-family: "Nunito", sans-serif;
+    padding: 10px;
+  }
+  div.generate-action a:hover {
+    text-decoration: underline;
+  }
+
+  #transactions {
+    border-radius: 10px;
+    border: 1px solid var(--light-gray);
+    display: flex;
+    justify-content: center;
+    margin-top: 6vh;
+    overflow: auto;
+    width: 75%;
+    padding: 16px;
+    min-height: 15vw;
+    max-height: 20vw;
+    position: absolute;
+  }
+
+  #data-table {
+    width: 100%;
+    padding-left: 250px;
+  }
+
+  #data-table tr th {
+    color: #9aa7af;
+    font-family: "Nunito", sans-serif;
+    padding: 0 12px;
+    margin: 0 26px;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 200px;
+  }
+
+  #data-table tr td {
+    width: 200%;
+    color: #9aa7af;
+    font-family: "Nunito", sans-serif;
+    margin: 0 26px;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  #data-table tr td:not(td:nth-last-of-type(1)) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #file_pdf i {
+    cursor: pointer;
+    padding: 10px;
+  }
+  #file_pdf i:hover {
+    filter: brightness(1.06);
+  }
+}

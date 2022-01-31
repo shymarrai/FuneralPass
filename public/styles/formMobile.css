@@ -14,7 +14,7 @@ form {
   height: 90%;
 }
 .form-title {
-  font-family: sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 4.5vw;
   text-align: left;
   width: 100%;
@@ -24,33 +24,109 @@ form {
   color: var(--medium-gray);
 }
 .form-container input[type="text"] {
-  width: 95%;
+  width: 100%;
   height: 2.4rem;
   margin: 0.5rem;
   border: none;
-  box-shadow: 0 5px 8px 2px rgba(0, 0, 0, 0.07);
   color: var(--medium-gray);
   padding-left: 1rem;
   border-radius: 4px;
+  box-shadow: inset 1px 1px 3px #e6e6e6, inset -1px -1px 3px #ffffff;
+  outline: none;
+  font-family: "Nunito", sans-serif;
+}
+select {
+  cursor: pointer;
+  border: none;
+  background-color: var(--light-blue);
+  color: var(--white);
+  padding: 0.3rem;
+  border-radius: 4px;
+  margin-left: 1%;
+  text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
-.form-container input[type="button"] {
+label {
+  font-family: "Nunito", sans-serif;
+  color: var(--medium-gray);
+  font-size: 0.8rem;
+  margin-left: 6px;
+  width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+div.five-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  margin: 6px 0px;
+  width: 100%;
+}
+div.five-wrapper input[type="text"] {
+  width: 32%;
+}
+
+div.container-label {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+div.container-label input[type="text"] {
+  width: 90%;
+}
+
+input[type="button"],
+input[type="submit"] {
   border: none;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 4% auto;
   width: 25vw;
-  height: 6vh;
-  box-shadow: 0 6px 10px 1px rgba(0, 0, 0, 0.25);
-  border-radius: 12px;
-  background-color: var(--light-blue);
+  height: 2.4rem;
+  box-shadow: 5px 5px 10px #ebebeb, -5px -5px 10px #ffffff;
+  border-radius: 6px;
+  background-color: var(--green);
   color: var(--white);
-  font-size: 1rem;
+  font-size: 0.8rem;
   cursor: pointer;
-  font-family: sans-serif;
+  font-family: "Nunito", sans-serif;
+  text-transform: uppercase;
   transition: all 0.5s;
 }
-.form-container input[type="button"]:hover {
+input[type="button"]:hover,
+input[type="submit"]:hover {
   filter: brightness(1.06);
+}
+.fa-plus-circle,
+p {
+  color: #9aa7af;
+  font-family: "Nunito", sans-serif;
+}
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4%;
+  margin-left: 2%;
+  align-items: center;
+  width: 150px;
+  cursor: pointer;
+}
+
+.form-container input[type="text"].mine-input {
+  width: 43.4%;
+  align-self: center;
+}
+
+.form-container input[type="text"].tiny-mine-input {
+  width: 23.4%;
+  align-self: center;
 }

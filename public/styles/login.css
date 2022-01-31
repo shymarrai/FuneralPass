@@ -15,7 +15,18 @@
   align-items: center;
 }
 img.profile {
-  width: 26rem;
+  width: 14rem;
+}
+
+a {
+  font-size: 0.6rem;
+  font-family: "Nunito", sans-serif;
+  text-decoration: none;
+  color: var(--medium-gray);
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
 }
 
 .accesForm {
@@ -29,11 +40,10 @@ img.profile {
 .accesForm input[type="text"],
 .accesForm input[type="password"] {
   width: 72%;
-  height: 2rem;
   border-radius: 40px;
   border: none;
   background-color: var(--light-gray);
-  padding: 0.5rem;
+  padding: 0.8rem;
   padding-left: 1.5rem;
   color: var(--medium-gray);
   font-weight: bold;

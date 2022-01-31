@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 90vw;
+  width: 100vw;
   position: relative;
-  margin-top: 40vw;
-  align-self: flex-start;
+  margin-top: -60vw;
+  align-self: center;
 }
 .bar-steps {
   display: flex;
@@ -18,7 +18,7 @@
   width: 100vw;
 }
 .menu-container hr {
-  width: 80vw;
+  width: 100vw;
   height: 0.8vh;
   background-color: var(--light-gray);
   border: none;
@@ -40,7 +40,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 .step-indicator:hover {
   background-color: var(--light-blue);
@@ -57,7 +57,7 @@
   font-weight: bold;
   align-self: center;
   font-size: 15px;
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 .shadow-drop-2-center {
   border: none;

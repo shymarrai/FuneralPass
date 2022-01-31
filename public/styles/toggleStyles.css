@@ -6,7 +6,7 @@
 
 :root {
   --white: #fafafa;
-  --light-gray: #eee;
+  --light-gray: #eceae9;
   --medium-gray: #666;
   --green: #b7d464;
   --dark: #0b1528;
@@ -58,6 +58,7 @@ body.dark .form-container input[type="button"] {
   position: relative;
   height: 26px;
   width: 50px;
+  left: 70%;
 }
 
 .label .ball {
@@ -82,4 +83,10 @@ body.dark .form-container input[type="button"] {
 
 .fa-sun {
   color: #f39c12;
+}
+
+@media (max-width: 540px) {
+  .label {
+    left: 60%;
+  }
 }

@@ -5,12 +5,16 @@
 }
 :root {
   --white: #fafafa;
-  --light-gray: #eee;
+  --light-gray: #eceae9;
   --medium-gray: #666;
   --light-medium-gray: #b2b2b2;
   --green: #b7d464;
   --light-blue: #6ac9f3;
   --dark: #0b1528;
+}
+.logoHeader {
+  width: 6rem;
+  margin: 2%;
 }
 header {
   width: 100vw;
@@ -43,4 +47,11 @@ div.animate__bounceIn {
 }
 .active {
   background-color: var(--light-blue);
+}
+
+@media (min-width: 640px) {
+  .logoHeader {
+    width: 5rem;
+    margin-left: 5%;
+  }
 }

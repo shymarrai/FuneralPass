@@ -4,25 +4,29 @@
   .containerExport {
     display: none;
   }
+  .nav {
+    position: absolute;
+    left: 16vw;
+    top: 0.1vh;
+  }
   .menu-container {
-    width: 40vw;
-    height: 6%;
+    width: 50rem;
+    height: 4%;
     background-color: transparent;
-    margin-top: 25vh;
-    left: -16%;
+    margin-top: 18vh;
     border-radius: 40px;
-    overflow: hidden;
     justify-content: flex-start;
+    left: 0;
   }
   .step-indicator {
-    min-width: 8rem;
-    min-height: 3rem;
+    min-height: 2.2rem;
     padding: 0 3%;
     background-color: var(--light-gray);
+
     border-radius: 20px 80px 80px 20px;
     box-shadow: none;
     cursor: pointer;
-    margin-left: -2%;
+    flex-wrap: nowrap;
   }
   .step-indicator span {
     padding: 0;
@@ -35,6 +39,7 @@
   .menu-container div.shadow-drop-2-center {
     animation: none;
     background-color: var(--light-blue);
+    margin-left: -4%;
   }
 
   .shadow-drop-2-center span {
@@ -43,26 +48,33 @@
 
   .menu-container .step-indicator:nth-of-type(1) {
     z-index: 5;
+    border-radius: 80px 20px 20px 80px;
   }
   .menu-container .step-indicator:nth-of-type(2) {
-    z-index: 4;
+    border-radius: 80px;
+    margin-left: -10%;
+    z-index: 6;
   }
   .menu-container div:nth-of-type(3) {
     z-index: 3;
+    margin-left: -2%;
   }
   .menu-container .step-indicator:nth-of-type(4) {
     z-index: 2;
+    margin-left: -2%;
   }
 
   .step-indicator:nth-of-type(1) span::after {
     content: "INÍCIO";
+    margin-left: -100%;
   }
   .step-indicator:nth-of-type(2) span::after {
     content: "SERVIÇOS";
   }
 
   .step-indicator:nth-of-type(3) span::after {
-    content: "DADOS DO CONTRATANDO";
+    content: "DADOS DO CONTRATANTE";
+    font-size: 75%;
   }
 
   .step-indicator:nth-of-type(4) span::after {

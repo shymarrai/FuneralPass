@@ -1,0 +1,19 @@
+<div class="wrapper-greetings">
+    
+    <div class='greeting-button'  onclick="window.location='/relatorio/<%= selectedUser.username %>/<%= token %>'">
+        <a href='/relatorio/<%= selectedUser.username %>/<%= token %>'>
+            Relatórios
+        </a>
+    </div>
+    <div class='greeting-message'>
+        <p>
+            Olá, <%= selectedUser.name %>
+        </p>
+    </div>
+    <div class='greeting-button' onclick="window.location='/logout'">
+        <a href='/logout'>
+            Sair
+            <i class="fas fa-times-circle"></i>
+        </a>
+    </div>
+</div>

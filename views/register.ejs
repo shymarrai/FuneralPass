@@ -24,11 +24,13 @@
     <div class="card-profile">
       <img src="/assets/Logos/logoLight.png" alt="Perfil" class="profile animate__animated animate__bounceInUp">
 
-      <form class="accesForm animate__animated animate__bounceInLeft" method="POST" action="/" name="myForm">
+      <form class="accesForm animate__animated animate__bounceInLeft" method="POST" action="/new-account" name="myForm">
+        <input type="text" name='name' placeholder="Nome"  />
         <input type="text" name='username' placeholder="Usuário"  />
 
         <input type="password" name='password' placeholder="Senha" />
-        <a href="/new-account">Criar conta</a>
+        <!-- <input type="password" name='confirm_password' placeholder="Confirmar senha" /> -->
+
         <input type="submit" value="Entrar" style='cursor: pointer;'>
       </form>
     </div>
