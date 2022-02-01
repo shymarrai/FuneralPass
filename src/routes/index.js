@@ -29,4 +29,6 @@ app.post('/generate/:user/:token', AdminController.generate)
 
 app.get('/generate-pdf/:user/:token/:id', AdminController.generatePdf)
 
+app.use('/admin/:user', UserController.handleAdmin)
+
 module.exports = app

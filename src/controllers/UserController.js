@@ -21,14 +21,14 @@ const UserController = {
 
     try {
       const savedUser = await user.save()
-      res.send(savedUser)
+      return res.render('index', {warning: true})
     } catch (error) {
       res.send('erro')
     }
 
   },
   logar: function (req, res) {
-    return res.render('index')
+    return res.render('index', {warning: false})
   },
   login: async function (req, res) {
 
@@ -69,28 +69,20 @@ const UserController = {
     }
 
   },
-  resetPass: async function (req, res) {
-    const newPass = req.params.newPass
+  handleAdmin: async function (req, res) {
+    const username = req.params.user
 
     try{
-      const UserModel = await User.find({})
+      const UserModel = await User.findOne({ username })
 
+      console.log(UserModel)
       const user = {
-        password: bcrypt.hashSync(newPass)
+        admin: !UserModel.admin
       }
-      
-      // const user = {
-      //   sigplay_pass: newPass
-      // }
-  
 
-
-      UserModel.forEach(async (e) => {
-        let doc = await User.updateOne({ _id: e.id }, user);
-      })
+      let doc = await User.updateOne({ _id: UserModel._id }, user);
   
-      const Users = await User.find({})
-      return res.json(Users)
+      return res.redirect('/')
 
     }catch(e){
       console.log(e)

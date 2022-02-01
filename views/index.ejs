@@ -22,14 +22,20 @@
   </header>
   <main>
     <div class="card-profile">
-      <img src="/assets/Logos/logoLight.png" alt="Perfil" class="profile logoHeader animate__animated animate__bounceInUp">
+      <img src="/assets/Logos/logoDark.png" alt="Perfil" class="profile logoHeader animate__animated animate__bounceInUp">
 
       <form class="accesForm animate__animated animate__bounceInLeft" method="POST" action="/" name="myForm">
         <input type="text" name='username' placeholder="Usuário"  />
-
+        
         <input type="password" name='password' placeholder="Senha" />
         <a href="/new-account">Criar conta</a>
         <input type="submit" value="Entrar" style='cursor: pointer;'>
+
+        <% if(warning){%>
+        <p class='warning'>
+          Conta criada
+        </p>
+        <%}%>
       </form>
     </div>
   </main>
