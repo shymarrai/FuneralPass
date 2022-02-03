@@ -1,3 +1,5 @@
+FROM node:alpine
+
 RUN apk add --no-cache bash
 
 RUN apk update && apk add --no-cache wget && apk --no-cache add openssl wget && apk add ca-certificates && update-ca-certificates
