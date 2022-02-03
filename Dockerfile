@@ -1,11 +1,12 @@
-FROM node:16
+FROM node:alpine
+RUN apk add --no-cache bash
 
 WORKDIR /usr/app
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 RUN npm install
 
-COPY . .
+COPY . ./
 
 
 EXPOSE 3000

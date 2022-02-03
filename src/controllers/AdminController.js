@@ -243,6 +243,11 @@ const AdminController = {
   
   `
     
+  res.setHeader('Content-Type', 'application/pdf')
+
+  const file = 'FuneralPass.pdf'
+
+  res.setHeader('Content-Disposition', `attachment; filename=${file}`)
         
     const options = {
         type: 'pdf',
@@ -258,11 +263,11 @@ const AdminController = {
       
     }
 
-    pdf.create(html, options).toBuffer((err, buffer) => {
+    pdf.create(html, options).toStream((err, stream) => {
         
-      fs.writeFileSync('some.pdf', buffer)
-    })
-    res.sendfile('some.pdf')
+      stream.pipe(res)
+
+  })
 
 
     
