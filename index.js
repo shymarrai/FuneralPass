@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_URL, { useUnifiedTopology: true, u
   (error) => {
     if (error) { console.log(error) }
 
-    else { console.log('Mongo Connected') }
+    else { console.log('Mongo Connected !!!') }
 
   })
 
@@ -28,4 +28,4 @@ server.use(express.urlencoded({ extend: true }))
 //routes
 server.use(routes)
 
-server.listen(process.env.PORT, () => console.log('rodando', process.env.PORT))
+server.listen(process.env.PORT, () => console.log('funcionando', process.env.PORT))

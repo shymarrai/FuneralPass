@@ -75,7 +75,6 @@ const UserController = {
     try{
       const UserModel = await User.findOne({ username })
 
-      console.log(UserModel)
       const user = {
         admin: !UserModel.admin
       }

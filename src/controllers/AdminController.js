@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken')
 const Transaction = require('../model/Transactions')
 const fs = require('fs')
 const pdf = require('html-pdf')
+const puppeteer = require('puppeteer')
+const { Buffer } = require('buffer');
 
 
 var data = new Date();
@@ -72,188 +74,200 @@ const AdminController = {
     const id = req.params.id
 
     const result = await Transaction.findOne({ _id: id})
-
     const html = `
-      <style>
-      @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&family=Roboto:wght@100;400&display=swap');
-        
-        p{
-          font-family: 'Roboto', sans-serif;
-          font-size: 14px;
-          font-weight: 100;
-          color: #000
-        }
-        strong, h2{
-          font-family: "Roboto", sans-serif;
-        }
-        img{
-          width: 100px;
-          position: absolute;
-          right: 60px;
-          top: -2px;
-        }
-        div#wrapperColor{
-          width: 100%;
-          background-color: #EEE;
-          margin-bottom: -10px;
-          margin-top: -10px;
-        }
-        div#wrapper{
-          width: 100%;
-          background-color: #FFF;
-        }
-        #values{
-          border: 1px solid #EEE;
-          border-radius: 4px;
-          width: 100%;
-        }
-      </style>
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&family=Roboto:wght@100;400&display=swap');
+      
+      p{
+        font-family: 'Roboto', sans-serif;
+        font-size: 14px;
+        font-weight: 100;
+        color: #000
+      }
+      strong, h2{
+        font-family: "Roboto", sans-serif;
+      }
+      img{
+        width: 100px;
+        position: absolute;
+        right: 60px;
+        top: -2px;
+      }
+      div#wrapperColor{
+        width: 100%;
+        background-color: #EEE;
+        margin-bottom: -10px;
+        margin-top: -10px;
+      }
+      div#wrapper{
+        width: 100%;
+        background-color: #FFF;
+      }
+      #values{
+        border: 1px solid #EEE;
+        border-radius: 4px;
+        width: 100%;
+      }
+    </style>
 
-      <div id="pageHeader-first">
-        <img src='https://i.ibb.co/qg2zJ9t/logoDark.png'/>
-      </div>
+    <div id="pageHeader-first">
+      <img src='https://i.ibb.co/qg2zJ9t/logoDark.png'/>
+    </div>
+
+    <div id='wrapperColor'>
+      <p style='padding: 8px'>
+        <strong>
+          Data:
+        </strong>
+        ${result.created_at.toLocaleString('pt-BR')}
+      </p>
+    </div>
+
+    <div id='wrapper'>
+      <p style='padding: 8px'>
+        <strong>
+          Nome do Vendedor:
+        </strong>
+        ${result.seller_name}
+      </p>
+    </div>
+
+    <div id='wrapperColor'>
+      <p style='padding: 8px'>
+        <strong>
+          Nome do Declarante:
+        </strong>
+        ${result.declarant_name}
+      </p>
+    </div>
+
+    <div id='wrapper'>
+      <p style='padding: 8px'>
+        <strong>
+          Nome do Óbito:
+        </strong>
+        ${result.obit_name}
+      </p>
+    </div>
+
+    <div id='wrapperColor'>
+      <p style='padding: 8px'>
+        <strong>
+          Nome do usuário:
+        </strong>
+        ${result.user_name}
+      </p>
+    </div>
+
+    <div id='wrapper'>
+      <p style='padding: 8px'>
+        <strong>
+          Login:
+        </strong>
+        ${result.user_username}
+      </p>
+    </div>
+
+    <hr />
+
+    <h2 style='margin-top: 70px;'>
+      Dados da venda
+    </h2>
+
+    <div id='values'>
 
       <div id='wrapperColor'>
         <p style='padding: 8px'>
           <strong>
-            Data:
+            Assessoria:
           </strong>
-          ${result.created_at.toLocaleString('pt-BR')}
+          R$ ${result.services_advice}
         </p>
       </div>
 
       <div id='wrapper'>
         <p style='padding: 8px'>
           <strong>
-            Nome do Vendedor:
+            Taxas (8%):
           </strong>
-          ${result.seller_name}
+          ${result.services_taxes}
         </p>
       </div>
 
       <div id='wrapperColor'>
         <p style='padding: 8px'>
           <strong>
-            Nome do Declarante:
+            Taxas Adversas:
           </strong>
-          ${result.declarant_name}
+          ${result.services_taxes_adverses}
         </p>
       </div>
 
       <div id='wrapper'>
         <p style='padding: 8px'>
           <strong>
-            Nome do Óbito:
+            Custo dos serviços:
           </strong>
-          ${result.obit_name}
+          ${result.services_costs}
         </p>
       </div>
 
       <div id='wrapperColor'>
         <p style='padding: 8px'>
           <strong>
-            Nome do usuário:
+            Lucro Liquido:
           </strong>
-          ${result.user_name}
+          ${result.services_profit}
         </p>
       </div>
 
-      <div id='wrapper'>
-        <p style='padding: 8px'>
-          <strong>
-            Login:
-          </strong>
-          ${result.user_username}
-        </p>
-      </div>
+        <h2 style='margin-top: 70px;'>
+          Serviços
+        </h2>
+        <div>
 
-      <hr />
+          ${
+            result.services_servicesNames.map((service, index) => {
+              return `
 
-      <h2 style='margin-top: 70px;'>
-        Dados da venda
-      </h2>
+              Serviço: ${service}  → ${result.services_servicesPrices[index]}
+                <hr/>
+              `
+            })
+          }
 
-      <div id='values'>
 
-        <div id='wrapperColor'>
-          <p style='padding: 8px'>
-            <strong>
-              Assessoria:
-            </strong>
-            R$ ${result.services_advice}
-          </p>
         </div>
 
-        <div id='wrapper'>
-          <p style='padding: 8px'>
-            <strong>
-              Taxas (8%):
-            </strong>
-            ${result.services_taxes}
-          </p>
-        </div>
-
-        <div id='wrapperColor'>
-          <p style='padding: 8px'>
-            <strong>
-              Taxas Adversas:
-            </strong>
-            ${result.services_taxes_adverses}
-          </p>
-        </div>
-
-        <div id='wrapper'>
-          <p style='padding: 8px'>
-            <strong>
-              Custo dos serviços:
-            </strong>
-            ${result.services_costs}
-          </p>
-        </div>
-
-        <div id='wrapperColor'>
-          <p style='padding: 8px'>
-            <strong>
-              Lucro Liquido:
-            </strong>
-            ${result.services_profit}
-          </p>
-        </div>
-
-          <h2 style='margin-top: 70px;'>
-            Serviços
-          </h2>
-          <div>
-
-            ${
-              result.services_servicesNames.map((service, index) => {
-                return `
-
-                Serviço: ${service}  → ${result.services_servicesPrices[index]}
-                  <hr/>
-                `
-              })
-            }
-
-
-          </div>
-
-      </div>
+    </div>
+  
+  `
     
-    `
         
     const options = {
         type: 'pdf',
         format: 'A4',
-        orientation: 'portrait'
+        orientation: 'portrait',
+        "httpHeaders": {
+          // e.g.
+          "Authorization": "Bearer ACEFAD8C-4B4D-4042-AB30-6C735F5BAC8B",
+        },
+        "childProcessOptions": {
+          "detached": true
+        }
+      
     }
 
     pdf.create(html, options).toBuffer((err, buffer) => {
-        if(err) return res.status(500).json(err)
         
-        res.end(buffer)               
+      fs.writeFileSync('some.pdf', buffer)
     })
+    res.sendfile('some.pdf')
+
+
+    
   }
 }
+
 
 module.exports = AdminController
