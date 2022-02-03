@@ -3,8 +3,6 @@ const jwt = require('jsonwebtoken')
 const Transaction = require('../model/Transactions')
 const fs = require('fs')
 const pdf = require('html-pdf')
-const puppeteer = require('puppeteer')
-const { Buffer } = require('buffer');
 
 
 var data = new Date();
@@ -12,6 +10,10 @@ var dia = String(data.getDate()).padStart(2, '0');
 var mes = String(data.getMonth() + 1).padStart(2, '0');
 var ano = data.getFullYear();
 dataAtual = dia + '/' + mes + '/' + ano;
+
+var DE = ''
+var ATE = ''
+var FILTER = ''
 
 const AdminController = {
   dash: async function (req, res) {
@@ -42,8 +44,13 @@ const AdminController = {
     const de = req.body.de
     const ate = req.body.ate
 
+    DE = de
+    ATE = ate
+
     // const user_username = req.body.user_username
     const seller_name = req.body.seller_name
+
+    FILTER = seller_name
 
 
     const selectedUser = await User.findOne({ username })
@@ -110,7 +117,7 @@ const AdminController = {
       }
     </style>
 
-    <div id="pageHeader-first">
+    <div id="pageHeader">
       <img src='https://i.ibb.co/qg2zJ9t/logoDark.png'/>
     </div>
 
@@ -229,8 +236,9 @@ const AdminController = {
           ${
             result.services_servicesNames.map((service, index) => {
               return `
-
-              Serviço: ${service}  → ${result.services_servicesPrices[index]}
+                <strong>
+                  Serviço: ${service}  → ${result.services_servicesPrices[index]}
+                </strong>
                 <hr/>
               `
             })
@@ -240,39 +248,90 @@ const AdminController = {
         </div>
 
     </div>
+    <div id="pageFooter">Default footer</div>
+
   
-  `
-    
+  ` 
+  
   res.setHeader('Content-Type', 'application/pdf')
 
   const file = 'FuneralPass.pdf'
 
   res.setHeader('Content-Disposition', `attachment; filename=${file}`)
-        
+
     const options = {
+        //phantomPath:  `${phantomPath}`,
+        phantomArgs : ["--ignore-ssl-errors=yes"] ,
+        localUrlAccess: true,
         type: 'pdf',
         format: 'A4',
-        orientation: 'portrait',
-        "httpHeaders": {
-          // e.g.
-          "Authorization": "Bearer ACEFAD8C-4B4D-4042-AB30-6C735F5BAC8B",
-        },
-        "childProcessOptions": {
-          "detached": true
-        }
-      
+        orientation: 'portrait'
     }
 
-    pdf.create(html, options).toStream((err, stream) => {
-        
-      stream.pipe(res)
+  pdf.create(html, options).toStream((err, stream) => {
+
+      if (err) {
+        // handle error and return a error response code
+        console.log(err)
+        return res.sendStatus(500)
+      } else {
+        // send a status code of 200 OK
+        res.statusCode = 200
+
+        // once we are done reading end the response
+        stream.on('end', () => {
+          // done reading
+          return res.end()
+        })
+
+        stream.pipe(res)
+      }
+
 
   })
 
 
+
+  },
+
+  deleteSell: async function (req, res) {
+
+    const token = req.params.token
+    const username = req.params.user
+
+    const id = req.params.id
+
+    const selectedUser = await User.findOne({ username })
+
+    if (!token) return res.status(401).send("Acesso Negado")
+    if (!selectedUser) return res.status(401).send("Acesso Negado")
+    if (!selectedUser.admin) return res.status(401).send("Acesso Negado")
+
+    try{
+      const qtd = await Transaction.deleteOne({ _id: id})
+
+      const listSellers = await Transaction.find().distinct('seller_name')
+
+
+      const filtroSellername = (FILTER !== 'todos') ? { "seller_name": FILTER} : {}
+
+      const result = await Transaction.find({ "$and": [{ "created_at": { "$gte": DE, "$lte": ATE } }, filtroSellername] }).sort({ "_id": -1 })
+
+      if (result.length <= 0) return res.send(`Resultado Vazio <a href='/relatorio/${selectedUser.username}/${token}'>Voltar</a>`)
+
+      res.render("relatorio", { selectedUser, token, result, listSellers })
+
+      // return res.redirect(`/relatorio/${selectedUser.username}/${token}`)
+    }catch(e){
+      console.log(e)
+      res.redirect('/')
+    }
+
     
+
   }
 }
+
 
 
 module.exports = AdminController

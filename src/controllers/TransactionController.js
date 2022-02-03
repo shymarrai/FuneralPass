@@ -1,7 +1,6 @@
 const User = require('../model/Users')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const xl = require('excel4node')
 const Declarant = require('../model/Declarant')
 const Obit = require('../model/Obits')
 const Service = require('../model/Services')
