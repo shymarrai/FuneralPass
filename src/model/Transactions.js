@@ -6,11 +6,13 @@ const transanctionSchema = new mongoose.Schema({
   obit_id:{type: String, required: true},
 
   seller_name:{type: String}, // nome do vendedor
+  seller_date:{type: Date},
 
   user_name: {type: String, required: true},
   user_username: {type: String, required: true}, // info da conta usada para a venda
 
   services_advice:{type: String, required: true}, //valor da venda
+  services_comissionValue:{type: String}, //valor da comissão
   services_taxes:{type: String, default:"8"}, //impostos
   services_taxes_adverses:{type: String}, //taxas diversas
   services_costs:{type: String}, //Custo dos Serviços

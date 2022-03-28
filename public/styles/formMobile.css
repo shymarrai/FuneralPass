@@ -35,6 +35,17 @@ form {
   outline: none;
   font-family: "Nunito", sans-serif;
 }
+#services_dateSell {
+  height: 2.4rem;
+  margin: 0.5rem;
+  border: none;
+  color: var(--medium-gray);
+  padding-left: 1rem;
+  border-radius: 4px;
+  box-shadow: inset 1px 1px 3px #e6e6e6, inset -1px -1px 3px #ffffff;
+  outline: none;
+}
+
 select {
   cursor: pointer;
   border: none;

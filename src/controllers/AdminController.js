@@ -1,6 +1,9 @@
 const User = require('../model/Users')
 const jwt = require('jsonwebtoken')
 const Transaction = require('../model/Transactions')
+const Services = require('../model/Services')
+const Obit = require('../model/Obits')
+const Declarant = require('../model/Declarant')
 const fs = require('fs')
 const pdf = require('html-pdf')
 
@@ -66,7 +69,7 @@ const AdminController = {
       // const filtroUsername = (user_username !== 'todos') ? { "user_username": user_username } : {}
       const filtroSellername = (seller_name !== 'todos') ? { "seller_name": seller_name} : {}
 
-      const result = await Transaction.find({ "$and": [{ "created_at": { "$gte": de, "$lte": ate } }, filtroSellername] }).sort({ "_id": -1 })
+      const result = await Transaction.find({ "$and": [{ "seller_date": { "$gte": de, "$lte": ate } }, filtroSellername] }).sort({ "_id": -1 })
 
       if (result.length <= 0) return res.send(`Resultado Vazio <a href='/relatorio/${selectedUser.username}/${token}'>Voltar</a>`)
 
@@ -126,7 +129,7 @@ const AdminController = {
         <strong>
           Data:
         </strong>
-        ${result.created_at.toLocaleString('pt-BR')}
+        ${result.seller_date.toLocaleString('pt-BR')}
       </p>
     </div>
 
@@ -136,6 +139,15 @@ const AdminController = {
           Nome do Vendedor:
         </strong>
         ${result.seller_name}
+      </p>
+    </div>
+
+    <div id='wrapper'>
+      <p style='padding: 8px'>
+        <strong>
+          Comissão:
+        </strong>
+        ${result?.services_comissionValue}
       </p>
     </div>
 
@@ -308,14 +320,21 @@ const AdminController = {
     if (!selectedUser.admin) return res.status(401).send("Acesso Negado")
 
     try{
-      const qtd = await Transaction.deleteOne({ _id: id})
+      const transaction = await Transaction.findOne({ _id: id})
+
+
+      const qtdT = await Transaction.deleteOne({ _id: id})
+      const qtdS = await Services.deleteOne({ _id: transaction.services_id})
+      const qtdO = await Obit.deleteOne({ _id: transaction.obit_id})
+      const qtdD = await Declarant.deleteOne({ _id: transaction.declarant_id})
+      
 
       const listSellers = await Transaction.find().distinct('seller_name')
 
 
       const filtroSellername = (FILTER !== 'todos') ? { "seller_name": FILTER} : {}
 
-      const result = await Transaction.find({ "$and": [{ "created_at": { "$gte": DE, "$lte": ATE } }, filtroSellername] }).sort({ "_id": -1 })
+      const result = await Transaction.find({ "$and": [{ "seller_date": { "$gte": DE, "$lte": ATE } }, filtroSellername] }).sort({ "_id": -1 })
 
       if (result.length <= 0) return res.send(`Resultado Vazio <a href='/relatorio/${selectedUser.username}/${token}'>Voltar</a>`)
 
