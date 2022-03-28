@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const servicesSchema = new mongoose.Schema({
   services_advice:{type: String, required: true}, //assessoria
   services_rates:{type: String}, //taxas
-  services_dateSell:{type: String, }, //data da venda
+  services_dateSell:{type: Date, }, //data da venda
   services_comission:{type: String}, //comissão
   services_comissionedName:{type: String}, // quem recebeu
   services_comissionValue:{type: String, }, // valor da comissaõ

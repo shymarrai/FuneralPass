@@ -80,53 +80,80 @@
                 <table id="data-table">
                   <thead>
                     <tr>
-                      <th>Data</th>
-                      <th>Username</th>
-                      <th>Vendedor</th>
+                      <th>Data da Venda</th>
+                      <th>Nome declarante</th>
+                      <th>Nome do Óbito</th>
                       <th>Asessoria</th>
+                      <th>Comissão</th>
+                      <!-- comissão -->
+                      <th>Vendedor</th>
                       <th>Taxas Adversas</th>
                       <th>Taxas (8%)</th>
                       <th>Custo dos serviços</th>
                       <th>Lucro Liquido</th>
-                      <th>Nome declarante</th>
-                      <th>Nome do Óbito</th>
+                      <th>Username</th>
                       <th>PDF</th>
                     </tr>
                   </thead>
                   <tbody>
                   <% for(var i=0; i<result.length; i++){ %>
                     <tr>
+                      
+                      
                       <td id='created_at'>
-                        <%= new Date(result[i].created_at).toLocaleDateString('pt-BR') %>
+                        <%= new Date(new Date(result[i].seller_date).getTime()+60*60*24*1000).toLocaleDateString('pt-BR')
+                        %>
+                      </td> 
+                      <!-- convertendo a data devolta ao padrão | 
+                        convertendo em mili | 
+                        adicionando 1 dia a mais sobre a data que vem do servidor |
+                        convertendo em BR
+                      -->
+                      <td id='declarant_name'>
+                        <%= result[i].declarant_name %>
+                      </td>
+
+                      
+                      <td id='obit_name'>
+                        <%= result[i].obit_name %>
+                      </td>
+
+                      
+                      <td id='services_advice'>
+                        <%= result[i].services_advice %>
+                      </td>
+
+                      <!-- comissão -->
+                      
+                      <td id='services_comissionValue'>
+                        <%= result[i].services_comissionValue %>
+                      </td>
+
+                      <td id='seller_name'>
+                        <%= result[i].seller_name %>
+                      </td>
+
+                      <td id='services_taxes_adverses'>
+                        <%= result[i].services_taxes_adverses %>
+                      </td>
+
+                      <td id='services_taxes'>
+                        <%= result[i].services_taxes %>
+                      </td>
+
+                      <td id='services_costs'>
+                        <%= result[i].services_costs %>
+                      </td>
+                      
+                      <td id='services_profit'>
+                        <%= result[i].services_profit %>
                       </td>
 
                       <td id='user_username'>
                         <%= result[i].user_username %>
                       </td>
-                      <td id='seller_name'>
-                        <%= result[i].seller_name %>
-                      </td>
-                      <td id='services_advice'>
-                        <%= result[i].services_advice %>
-                      </td>
-                      <td id='services_taxes_adverses'>
-                        <%= result[i].services_taxes_adverses %>
-                      </td>
-                      <td id='services_taxes'>
-                        <%= result[i].services_taxes %>
-                      </td>
-                      <td id='services_costs'>
-                        <%= result[i].services_costs %>
-                      </td>
-                      <td id='services_profit'>
-                        <%= result[i].services_profit %>
-                      </td>
-                      <td id='declarant_name'>
-                        <%= result[i].declarant_name %>
-                      </td>
-                      <td id='obit_name'>
-                        <%= result[i].obit_name %>
-                      </td>
+
+
                       <td id='file_pdf'>
                         <i class="fas fa-file-pdf" onclick="window.location='/generate-pdf/<%= selectedUser.username %>/<%= token %>/<%= result[i]._id %> '"></i>
                       </td>
