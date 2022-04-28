@@ -158,8 +158,9 @@
                         <i class="fas fa-file-pdf" onclick="window.location='/generate-pdf/<%= selectedUser.username %>/<%= token %>/<%= result[i]._id %> '"></i>
                       </td>
                       <td id='file_pdf'>
-                        <i class="fas fa-trash" onclick="window.location='/delete-sell/<%= selectedUser.username %>/<%= token %>/<%= result[i]._id %> '"></i>
+                        <i class="fas fa-trash" onclick="deleteRegister('<%= selectedUser.username %>','<%= token %>','<%= result[i]._id %>')"></i>
                       </td>
+                      <!-- window.location='/delete-sell/<%= selectedUser.username %>/<%= token %>/<%= result[i]._id %> ' -->
                   </tr>
                 <% }%>
                 </tbody>
