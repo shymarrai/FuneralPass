@@ -282,3 +282,13 @@ function getMoney(str) {
         .replace(',', '.');      // Troca o separador decimal (`,` -> `.`)
 }
 
+
+function deleteRegister(username, token, id){
+
+    if(window.confirm("Você realmente quer excluir este documento?")){
+        window.location=`/delete-sell/${username}/${token}/${id}`
+
+    }
+
+}
+
