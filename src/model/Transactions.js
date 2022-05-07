@@ -5,21 +5,21 @@ const transanctionSchema = new mongoose.Schema({
   services_id:{type: String, required: true},
   obit_id:{type: String, required: true},
 
-  seller_name:{type: String}, // nome do vendedor
-  seller_date:{type: Date},
+  seller_name:{type: String, default: "N/A"}, // nome do vendedor
+  seller_date:{type: Date, default: Date.now},
 
-  user_name: {type: String, required: true},
-  user_username: {type: String, required: true}, // info da conta usada para a venda
+  user_name: {type: String, default: "N/A"},
+  user_username: {type: String, default: "N/A"}, // info da conta usada para a venda
 
-  services_advice:{type: String, required: true}, //valor da venda
-  services_comissionValue:{type: String}, //valor da comissão
+  services_advice:{type: String, default: "N/A"}, //valor da venda
+  services_comissionValue:{type: String, default: "N/A"}, //valor da comissão
   services_taxes:{type: String, default:"8"}, //impostos
-  services_taxes_adverses:{type: String}, //taxas diversas
-  services_costs:{type: String}, //Custo dos Serviços
-  services_profit:{type: String}, //lucro liquido
+  services_taxes_adverses:{type: String, default: "N/A"}, //taxas diversas
+  services_costs:{type: String, default: "N/A"}, //Custo dos Serviços
+  services_profit:{type: String, default: "N/A"}, //lucro liquido
   
-  declarant_name:{type: String},
-  obit_name:{type: String},
+  declarant_name:{type: String, default: "N/A"},
+  obit_name:{type: String, default: "N/A"},
   services_servicesNames:[
     "String",// nomes dos serviços
   ], 
